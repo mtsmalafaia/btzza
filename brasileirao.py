@@ -150,6 +150,7 @@ def ids_dos_melhor_classificados(dados,numero_de_times):
     return dados['fases']['2700']['classificacao']['grupo']['Único'][:numero_de_times]
 
 
+
 '''
 A proxima funcao usa as duas anteriores para retornar uma 
 lista de todos os times classificados para a libertadores em
@@ -165,7 +166,10 @@ A funcao so recebe o dicionario de dados do brasileirao
 
 def classificados_libertadores(dados):
     qtd_times=qtos_libertadores(dados)
-    return ids_dos_melhor_classificados(dados,qtd_times)
+    ids_times=ids_dos_melhor_classificados(dados,qtd_times)
+    return ids_times
+
+print (classificados_libertadores(dados2018))
    
 
 
@@ -174,8 +178,12 @@ Usando as duas funcoes anteriores, podemos fazer uma que retorna os nomes dos cl
 '''
 
 def nomes_classificados_libertadores(dados):
-    
-    pass
+    ids_classificados=classificados_libertadores(dados)
+    nomes_classificados=[]
+    for id in ids_classificados:
+        nomes_classificados.append(dados['equipes'][id]['nome-comum'])
+    return nomes_classificados
+
 
 '''
 Nos nossos dados, cada time tem um id, uma identificacao numerica.
@@ -198,9 +206,9 @@ def ids_dos_times_de_um_jogo(dados,id_jogo):
     return time1,time2 #assim a gente retorna as duas respostas em um unico return
 '''
 def ids_dos_times_de_um_jogo(dados,id_jogo):
-    time1 = 12
-    time2 = 13
-    return time1,time2 #assim a gente retorna as duas respostas em um unico return
+    t1 = dados['fases']['2700']['jogos']['id'][id_jogo]['time1']
+    t2 = dados['fases']['2700']['jogos']['id'][id_jogo]['time2']
+    return t1,t2 #assim a gente retorna as duas respostas em um unico return
 
 '''
 A proxima funcao "cruza" a anterior com a funcao que pega nomes. 
